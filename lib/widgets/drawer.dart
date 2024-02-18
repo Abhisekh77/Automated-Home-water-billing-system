@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_project/pages/login_page.dart';
 import 'package:my_first_project/pages/watertank.dart';
-import '../pages/admincopy.dart';
+import '../pages/admin.dart';
 import '../pages/water_usage.dart';
-import '../pages/admin_login.dart';
+
 import '../pages/weatherpage.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -59,7 +59,7 @@ class MyDrawer extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => AdminPage1()),
+                    MaterialPageRoute(builder: (context) => AdminPage()),
                   );
                 },
                 child: ListTile(

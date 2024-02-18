@@ -3,14 +3,14 @@ import 'package:my_first_project/pages/home_page.dart';
 import 'package:my_first_project/pages/homeadmin.dart';
 import 'package:my_first_project/utils/routes.dart';
 
-class AdminPage1 extends StatefulWidget {
-  const AdminPage1({Key? key}) : super(key: key);
+class AdminPage extends StatefulWidget {
+  const AdminPage({Key? key}) : super(key: key);
 
   @override
   _AdminPageState createState() => _AdminPageState();
 }
 
-class _AdminPageState extends State<AdminPage1> {
+class _AdminPageState extends State<AdminPage> {
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';

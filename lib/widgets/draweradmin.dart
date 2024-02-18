@@ -4,8 +4,8 @@ import 'package:my_first_project/pages/button1.dart';
 import 'package:my_first_project/pages/login_page.dart';
 import 'package:my_first_project/pages/meteradmin.dart.dart';
 import 'package:my_first_project/pages/watertank.dart';
-import 'package:my_first_project/widgets/weatherchat.dart';
-import '../pages/admincopy.dart';
+import 'package:my_first_project/pages/weather1.dart';
+import '../pages/admin.dart';
 
 import '../pages/weatherpage.dart';
 
@@ -91,7 +91,7 @@ class MyDrawer1 extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => AdminPage1()),
+                    MaterialPageRoute(builder: (context) => AdminPage()),
                   );
                 },
                 child: ListTile(
