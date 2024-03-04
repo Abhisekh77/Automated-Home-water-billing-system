@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:my_first_project/pages/button.dart';
 import 'package:my_first_project/pages/button1.dart';
 import 'package:my_first_project/pages/login_page.dart';
+import 'package:my_first_project/pages/meteradmincopy.dart';
 import 'package:my_first_project/pages/meteradmin.dart.dart';
 import 'package:my_first_project/pages/watertank.dart';
-import 'package:my_first_project/pages/weather1.dart';
 import '../pages/admin.dart';
-
 import '../pages/weatherpage.dart';
 
 class MyDrawer1 extends StatelessWidget {
@@ -46,11 +45,12 @@ class MyDrawer1 extends StatelessWidget {
                 ),
               ),
 
-              // to add icons like home.....
-              ListTile(
-                leading: Icon(Icons.home, color: Colors.black),
-                title: Text("Home Page", style: TextStyle(color: Colors.black)),
-              ),
+              // to add icons like home....
+              // .
+              // ListTile(
+              //   leading: Icon(Icons.home, color: Colors.black),
+              //   title: Text("Home Page", style: TextStyle(color: Colors.black)),
+              // ),
 
               ListTile(
                 leading:
@@ -58,34 +58,20 @@ class MyDrawer1 extends StatelessWidget {
                 title: Text("User Page", style: TextStyle(color: Colors.black)),
               ),
 
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyButton()),
-                  );
-                },
-                child: ListTile(
-                  leading:
-                      Icon(Icons.radio_button_on_sharp, color: Colors.black),
-                  title: Text("Switch", style: TextStyle(color: Colors.black)),
-                ),
-              ),
-
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyButton123()),
-                  );
-                },
-                child: ListTile(
-                  leading:
-                      Icon(Icons.radio_button_on_sharp, color: Colors.black),
-                  title:
-                      Text("Switch123", style: TextStyle(color: Colors.black)),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => MyButton123()),
+              //     );
+              //   },
+              //   child: ListTile(
+              //     leading:
+              //         Icon(Icons.radio_button_on_sharp, color: Colors.black),
+              //     title:
+              //         Text("Switch123", style: TextStyle(color: Colors.black)),
+              //   ),
+              // ),
 
               GestureDetector(
                 onTap: () {
@@ -106,14 +92,13 @@ class MyDrawer1 extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Weather123()),
+                    MaterialPageRoute(builder: (context) => MyButton()),
                   );
                 },
                 child: ListTile(
                   leading:
-                      Icon(Icons.admin_panel_settings, color: Colors.black),
-                  title:
-                      Text("Weather123", style: TextStyle(color: Colors.black)),
+                      Icon(Icons.radio_button_on_sharp, color: Colors.black),
+                  title: Text("Switch", style: TextStyle(color: Colors.black)),
                 ),
               ),
 
@@ -144,11 +129,25 @@ class MyDrawer1 extends StatelessWidget {
                 ),
               ),
 
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => WaterMeter1()),
+              //     );
+              //   },
+              //   child: ListTile(
+              //     leading: Icon(Icons.water, color: Colors.black),
+              //     title:
+              //         Text("Watermeter", style: TextStyle(color: Colors.black)),
+              //   ),
+              // ),
+
               GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => WaterMeter1()),
+                    MaterialPageRoute(builder: (context) => WaterMeter123()),
                   );
                 },
                 child: ListTile(

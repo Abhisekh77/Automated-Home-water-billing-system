@@ -1,27 +1,4 @@
-// import 'package:flutter/material.dart';
 
-// class WaterMeter extends StatelessWidget {
-//   const WaterMeter({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//           title: Text("Water Meter"),
-//         ),
-//         body: Center(
-//           child: Column(
-//             children: [
-//               Image.asset('assets/water_meter.png'),
-//               Text("Previous Unit"),
-//               Text("Today Unit"),
-//               Text("Total Units"),
-//               Text("Total Price")
-//             ],
-//           ),
-//         ));
-//   }
-// }
 
 import 'package:flutter/material.dart';
 

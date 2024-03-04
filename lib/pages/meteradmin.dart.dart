@@ -86,7 +86,7 @@ class _WaterMeterState extends State<WaterMeter1> {
         DataRow(
           cells: <DataCell>[
             DataCell(Text(
-              'Previous Unit',
+              'Today Unit',
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,
@@ -98,7 +98,7 @@ class _WaterMeterState extends State<WaterMeter1> {
         DataRow(
           cells: <DataCell>[
             DataCell(Text(
-              'Today Unit',
+              'Previous Unit',
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,

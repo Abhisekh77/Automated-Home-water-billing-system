@@ -1,9 +1,34 @@
-import 'dart:ui';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'package:http/http.dart' as http;
 
-class WeatherPage extends StatelessWidget {
+class WeatherPage extends StatefulWidget {
+  @override
+  _WeatherPageState createState() => _WeatherPageState();
+}
+
+class _WeatherPageState extends State<WeatherPage> {
+  Map<String, dynamic>? weatherData;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchWeatherData();
+  }
+
+  Future<void> fetchWeatherData() async {
+    final response = await http.get(Uri.parse(
+        'https://www.meteosource.com/api/v1/free/point?place_id=kathmandu&sections=all&timezone=UTC&language=en&units=metric&key=ygp1tzo9dfsl29vzrkk3nx8acsepc10pdy34oh1l'));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        weatherData = json.decode(response.body);
+      });
+    } else {
+      throw Exception('Failed to load weather data');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,122 +44,65 @@ class WeatherPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(Icons.wb_sunny, size: 100, color: Colors.yellow),
-              SizedBox(height: 16),
-              Text(
-                "Sunny",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-              Text("Temperature: 30°C", style: TextStyle(fontSize: 18)),
-              SizedBox(height: 10),
-              Text('Location: Kathmandu', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 20),
-              Text(
-                'Daily Weather Prediction:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 150,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount:
-                      7, // Displaying 7 days of daily predictions (Sunday to Saturday)
-                  itemBuilder: (context, index) {
-                    final dailyData = _generateDailyWeatherData(index);
-                    return _buildDailyWeatherCard(dailyData);
-                  },
+              if (weatherData != null) ...[
+                Icon(Icons.wb_sunny, size: 100, color: Colors.yellow),
+                SizedBox(height: 16),
+                Text(
+                  weatherData!['current']['summary'],
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Hourly Weather Prediction:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 150,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount:
-                      24, // Displaying 4 hourly predictions (0 AM, 8 AM, 4 PM, 12 AM)
-                  itemBuilder: (context, index) {
-                    final hourlyData = _generateHourlyWeatherData(index);
-                    return _buildHourlyWeatherCard(hourlyData);
-                  },
+                SizedBox(height: 10),
+                Text(
+                  "Temperature: ${weatherData!['current']['temperature']}°C",
+                  style: TextStyle(fontSize: 18),
                 ),
-              ),
+                SizedBox(height: 10),
+                Text(
+                  'Location: Kathmandu',
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Daily Weather Prediction:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 150,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: (weatherData!['daily']['data'] as List).length,
+                    itemBuilder: (context, index) {
+                      final dailyData = weatherData!['daily']['data'][index];
+                      return _buildDailyWeatherCard(dailyData);
+                    },
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Hourly Weather Prediction:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 150,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: (weatherData!['hourly']['data'] as List).length,
+                    itemBuilder: (context, index) {
+                      final hourlyData = weatherData!['hourly']['data'][index];
+                      return _buildHourlyWeatherCard(hourlyData);
+                    },
+                  ),
+                ),
+              ],
+              if (weatherData == null)
+                Center(
+                    child:
+                        CircularProgressIndicator()), // Show a loading indicator while data is being fetched
             ],
           ),
         ),
       ),
     );
-  }
-
-  Map<String, dynamic> _generateDailyWeatherData(int dayIndex) {
-    final random = Random();
-    final conditions = ['Sunny', 'Cloudy', 'Rainy'];
-    final daysOfWeek = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
-    ];
-
-    return {
-      "day": daysOfWeek[dayIndex],
-      "condition": conditions[random.nextInt(conditions.length)],
-      "temperature": "${random.nextInt(21) + 10}°C",
-    };
-  }
-
-  Map<String, dynamic> _generateHourlyWeatherData(int hourIndex) {
-    final random = Random();
-    final conditions = ['Sunny', 'Cloudy', 'Rainy'];
-    final hours = [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23
-    ];
-
-    final hour = hours[hourIndex];
-    final time = _getTimeIn12HourFormat(hour);
-
-    return {
-      "time": time,
-      "condition": conditions[random.nextInt(conditions.length)],
-      "temperature": "${random.nextInt(21) + 10}°C",
-    };
-  }
-
-  String _getTimeIn12HourFormat(int hour) {
-    if (hour == 0) return "12 AM";
-    if (hour < 12) return "$hour AM";
-    if (hour == 12) return "12 PM";
-    return "${hour - 12} PM";
   }
 
   Widget _buildDailyWeatherCard(Map<String, dynamic> data) {
@@ -148,17 +116,24 @@ class WeatherPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(data['day']!, style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(data['day'], style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 5),
-          _getWeatherIcon(data['condition']!),
+          _getWeatherIcon(data['weather']),
           SizedBox(height: 5),
-          Text(data['temperature']!),
+          Text(
+              '${data['all_day']['temperature_min']}/${data['all_day']['temperature_max']} °C'),
         ],
       ),
     );
   }
 
   Widget _buildHourlyWeatherCard(Map<String, dynamic> data) {
+    final hour = DateTime.parse(data['date']).toLocal().hour;
+    final isDaytime = hour >= 6 && hour < 18;
+    final period = hour < 12 ? 'AM' : 'PM';
+    final displayHour =
+        hour % 12 == 0 ? 12 : hour % 12; // Convert to 12-hour format
+
     return Container(
       width: 100,
       padding: EdgeInsets.all(8),
@@ -169,42 +144,48 @@ class WeatherPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(data['time']!, style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('$displayHour $period',
+              style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 5),
-          _getWeatherIcon(data['condition']!),
+          _getWeatherIcon(data['weather']),
           SizedBox(height: 5),
-          Text(data['temperature']!),
+          Text('${data['temperature']} °C'),
         ],
       ),
     );
   }
 
-  Icon _getWeatherIcon(String condition) {
-    switch (condition) {
-      case 'Sunny':
-        return Icon(
-          Icons.wb_sunny,
-          color: Colors.yellow,
-          size: 60,
-        );
-      case 'Cloudy':
-        return Icon(
-          Icons.wb_cloudy,
-          color: Colors.blue,
-          size: 60,
-        );
-      case 'Rainy':
-        return Icon(
-          Icons.beach_access,
-          color: Colors.blue,
-          size: 60,
-        );
-      default:
-        return Icon(
-          Icons.wb_sunny,
-          color: Colors.yellow,
-          size: 60,
-        );
+  Widget _getWeatherIcon(String condition) {
+    final hour = DateTime.now().hour;
+    final isDaytime = hour >= 6 && hour < 18;
+
+    if (isDaytime) {
+      switch (condition) {
+        case 'overcast':
+          return Icon(Icons.cloud, color: Colors.blue);
+        case 'cloudy':
+          return Icon(Icons.wb_cloudy, color: Colors.blue);
+        case 'mostly_cloudy':
+          return Icon(Icons.wb_cloudy, color: Colors.blue);
+        case 'partly_sunny':
+          return Icon(Icons.wb_sunny, color: Colors.yellow);
+        case 'mostly_sunny':
+          return Icon(Icons.wb_sunny, color: Colors.yellow);
+        case 'partly_clear':
+          return Icon(Icons.wb_sunny, color: Colors.yellow);
+        case 'light_rain':
+          return Icon(Icons.grain);
+        default:
+          return Icon(Icons.wb_sunny, color: Colors.yellow);
+      }
+    } else {
+      return Icon(Icons.nightlight_round);
     }
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: WeatherPage(),
+  ));
 }

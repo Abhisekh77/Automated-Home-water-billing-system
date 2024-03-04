@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_project/pages/meteradmin.dart.dart';
+import 'package:my_first_project/pages/water_usage.dart';
 import 'package:my_first_project/pages/watertank.dart';
 import 'package:my_first_project/pages/weatherpage.dart';
 import '../widgets/drawer.dart';
@@ -119,7 +120,7 @@ class HomePage1 extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => WeatherPage()),
+                                      builder: (context) => WaterMeter1()),
                                 );
                               },
                               child: Container(
