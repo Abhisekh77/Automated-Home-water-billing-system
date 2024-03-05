@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_project/pages/button1.dart';
-import 'package:my_first_project/pages/meteradmin.dart.dart';
-import 'package:my_first_project/pages/meteradmincopy.dart';
-import 'package:my_first_project/pages/water_usage.dart';
+import 'package:my_first_project/pages/switchbutton.dart';
+import 'package:my_first_project/pages/metersample.dart.dart';
+import 'package:my_first_project/pages/meterrealtime.dart';
 import 'package:my_first_project/pages/watertank.dart';
-import 'package:my_first_project/pages/weatherpage.dart';
+import 'package:my_first_project/pages/weatherrealtime.dart';
 import '../widgets/drawer.dart';
 import '../widgets/draweradmin.dart';
 import 'login_page.dart';

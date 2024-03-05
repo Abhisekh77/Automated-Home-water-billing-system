@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_project/pages/button.dart';
-import 'package:my_first_project/pages/button1.dart';
+import 'package:my_first_project/pages/buttonpractice.dart';
+import 'package:my_first_project/pages/switchbutton.dart';
 import 'package:my_first_project/pages/login_page.dart';
-import 'package:my_first_project/pages/meteradmincopy.dart';
-import 'package:my_first_project/pages/meteradmin.dart.dart';
+import 'package:my_first_project/pages/meterrealtime.dart';
+import 'package:my_first_project/pages/metersample.dart.dart';
 import 'package:my_first_project/pages/watertank.dart';
 import '../pages/admin.dart';
-import '../pages/weatherpage.dart';
+import '../pages/weatherrealtime.dart';
 
 class MyDrawer1 extends StatelessWidget {
   const MyDrawer1({super.key});

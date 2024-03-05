@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_project/pages/login_page.dart';
+import 'package:my_first_project/pages/meterrealtime.dart';
 import 'package:my_first_project/pages/watertank.dart';
 import '../pages/admin.dart';
-import '../pages/water_usage.dart';
 
-import '../pages/weatherpage.dart';
+import '../pages/weatherrealtime.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -27,12 +27,12 @@ class MyDrawer extends StatelessWidget {
                 child: UserAccountsDrawerHeader(
                   margin: EdgeInsets.zero,
                   accountName: Text(
-                    'Hari Ram Upadhaya',
+                    'Ram Rana',
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                   accountEmail: Text(
-                    "hariupadhaya750@gmail.com",
+                    "ramrana50@gmail.com",
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
@@ -101,11 +101,7 @@ class MyDrawer extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => WaterMeter(
-                              previousUnit: 100,
-                              todayUnit: 125,
-                            )),
+                    MaterialPageRoute(builder: (context) => WaterMeter123()),
                   );
                 },
                 child: ListTile(

@@ -16,7 +16,7 @@ class _WaterMeterState extends State<WaterMeter123> {
   String errorMessage = '';
 
   // Default values
-  String name = 'Shakti sharma';
+  String name = 'Hari Upadhaya';
   String houseNumber = '101';
 
   @override
@@ -31,32 +31,27 @@ class _WaterMeterState extends State<WaterMeter123> {
           'https://majorproject-git-main-alex5748s-projects.vercel.app/get-data123')); // Replace with your actual API URL
       final responseData = json.decode(response.body) as List<dynamic>;
 
-      if (responseData.isNotEmpty && responseData.length >= 2) {
-        final previousEntry = responseData[responseData.length - 2];
-        final todayEntry = responseData.last;
-
-        final previousTotalFlow = previousEntry['total_flow'] as int;
-        final todayTotalFlow = todayEntry['total_flow'] as int;
+      if (responseData.isNotEmpty) {
+        final firstEntry = responseData.first;
+        final todayTotalFlow = firstEntry['total_flow'] as int;
 
         // Calculate today and previous units
-        previousUnit = previousTotalFlow ~/ 20;
-        todayUnit = todayTotalFlow ~/ 20;
-
-        // Calculate total units and price
-        if (todayUnit >= previousUnit) {
-          totalUnits = todayUnit - previousUnit;
-        } else {
-          totalUnits = (1000 - previousUnit) +
-              todayUnit; // Assuming 1000 is the maximum unit value
-        }
-        totalPrice = totalUnits * 5; // Assuming the price per unit is 5
+        final previousUnit = 33;
+        final todayUnit = (todayTotalFlow / 20).ceil() +
+            previousUnit; // ceil() to ensure rounding up
+        final totalUnits = todayUnit - previousUnit;
+        final totalPrice = totalUnits * 5; // Assuming the price per unit is 5
 
         setState(() {
+          this.previousUnit = previousUnit;
+          this.todayUnit = todayUnit;
+          this.totalUnits = totalUnits;
+          this.totalPrice = totalPrice;
           isLoading = false;
         });
       } else {
         setState(() {
-          errorMessage = 'Insufficient data available';
+          errorMessage = 'No data available';
           isLoading = false;
         });
       }
@@ -158,7 +153,7 @@ class _WaterMeterState extends State<WaterMeter123> {
               DataRow(
                 cells: <DataCell>[
                   DataCell(Text(
-                    'Today Unit',
+                    "Today's Unit",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -194,7 +189,7 @@ class _WaterMeterState extends State<WaterMeter123> {
               DataRow(
                 cells: <DataCell>[
                   DataCell(Text(
-                    'Total Price',
+                    'Total',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,

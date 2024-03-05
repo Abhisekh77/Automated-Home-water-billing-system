@@ -129,10 +129,10 @@ class _WeatherPageState extends State<WeatherPage> {
 
   Widget _buildHourlyWeatherCard(Map<String, dynamic> data) {
     final hour = DateTime.parse(data['date']).toLocal().hour;
-    final isDaytime = hour >= 6 && hour < 18;
     final period = hour < 12 ? 'AM' : 'PM';
     final displayHour =
         hour % 12 == 0 ? 12 : hour % 12; // Convert to 12-hour format
+    final isNighttime = hour >= 18 || hour < 6;
 
     return Container(
       width: 100,
@@ -147,7 +147,9 @@ class _WeatherPageState extends State<WeatherPage> {
           Text('$displayHour $period',
               style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 5),
-          _getWeatherIcon(data['weather']),
+          isNighttime
+              ? Icon(Icons.wb_cloudy_rounded, color: Colors.blue)
+              : _getWeatherIcon(data['weather']),
           SizedBox(height: 5),
           Text('${data['temperature']} °C'),
         ],
@@ -156,30 +158,23 @@ class _WeatherPageState extends State<WeatherPage> {
   }
 
   Widget _getWeatherIcon(String condition) {
-    final hour = DateTime.now().hour;
-    final isDaytime = hour >= 6 && hour < 18;
-
-    if (isDaytime) {
-      switch (condition) {
-        case 'overcast':
-          return Icon(Icons.cloud, color: Colors.blue);
-        case 'cloudy':
-          return Icon(Icons.wb_cloudy, color: Colors.blue);
-        case 'mostly_cloudy':
-          return Icon(Icons.wb_cloudy, color: Colors.blue);
-        case 'partly_sunny':
-          return Icon(Icons.wb_sunny, color: Colors.yellow);
-        case 'mostly_sunny':
-          return Icon(Icons.wb_sunny, color: Colors.yellow);
-        case 'partly_clear':
-          return Icon(Icons.wb_sunny, color: Colors.yellow);
-        case 'light_rain':
-          return Icon(Icons.grain);
-        default:
-          return Icon(Icons.wb_sunny, color: Colors.yellow);
-      }
-    } else {
-      return Icon(Icons.nightlight_round);
+    switch (condition) {
+      case 'overcast':
+        return Icon(Icons.cloud, color: Colors.blue);
+      case 'cloudy':
+        return Icon(Icons.wb_cloudy, color: Colors.blue);
+      case 'mostly_cloudy':
+        return Icon(Icons.wb_cloudy, color: Colors.blue);
+      case 'partly_sunny':
+        return Icon(Icons.wb_sunny, color: Colors.yellow);
+      case 'mostly_sunny':
+        return Icon(Icons.wb_sunny, color: Colors.yellow);
+      case 'partly_clear':
+        return Icon(Icons.wb_sunny, color: Colors.yellow);
+      case 'light_rain':
+        return Icon(Icons.grain);
+      default:
+        return Icon(Icons.wb_sunny, color: Colors.yellow);
     }
   }
 }
