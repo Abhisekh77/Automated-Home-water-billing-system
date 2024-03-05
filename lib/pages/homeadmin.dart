@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_project/pages/button1.dart';
 import 'package:my_first_project/pages/meteradmin.dart.dart';
+import 'package:my_first_project/pages/meteradmincopy.dart';
 import 'package:my_first_project/pages/water_usage.dart';
 import 'package:my_first_project/pages/watertank.dart';
 import 'package:my_first_project/pages/weatherpage.dart';
@@ -42,7 +44,7 @@ class HomePage1 extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => WaterMeter1()),
+                                      builder: (context) => MyButton()),
                                 );
                               },
                               child: Container(
@@ -56,12 +58,12 @@ class HomePage1 extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Image.asset(
-                                      "assets/consumption.png",
+                                      "assets/switch.png",
                                       width: 100,
                                       height: 100,
                                     ),
                                     Text(
-                                      "Consumption",
+                                      "Switch",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
@@ -120,7 +122,7 @@ class HomePage1 extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => WaterMeter1()),
+                                      builder: (context) => WaterMeter123()),
                                 );
                               },
                               child: Container(

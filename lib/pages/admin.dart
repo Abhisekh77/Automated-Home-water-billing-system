@@ -109,9 +109,9 @@ class _AdminPageState extends State<AdminPage> {
                     child: Text(
                       "Login",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                   ),
                 ],

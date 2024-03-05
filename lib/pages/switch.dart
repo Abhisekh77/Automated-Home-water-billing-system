@@ -40,7 +40,7 @@ class _MyButtonState extends State<MyButton> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    primary:
+                    backgroundColor:
                         selectedButton == 'ON' ? Colors.green : Colors.white,
                     side: BorderSide(color: Colors.green, width: 5),
                     shape: RoundedRectangleBorder(
@@ -71,7 +71,7 @@ class _MyButtonState extends State<MyButton> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    primary:
+                    backgroundColor:
                         selectedButton == 'OFF' ? Colors.green : Colors.white,
                     side: BorderSide(color: Colors.green, width: 5),
                     shape: RoundedRectangleBorder(

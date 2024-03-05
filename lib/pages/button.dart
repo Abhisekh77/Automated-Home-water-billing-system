@@ -8,14 +8,14 @@ class MyButton123 extends StatefulWidget {
 }
 
 class _MyButtonState extends State<MyButton123> {
-  String selectedButton = ''; // 'ON' or 'OF'
+  String selectedButton = ''; // 'ON' or 'OFF'
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Button123",
+          "Valve control",
           style: TextStyle(
             color: Colors.black,
             fontSize: 20,
@@ -30,6 +30,14 @@ class _MyButtonState extends State<MyButton123> {
           children: [
             Image.asset("assets/solenoid_valve.jpg"),
             SizedBox(height: 20),
+            Text(
+              "Switching Control",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+                color: Colors.blue,
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -40,22 +48,31 @@ class _MyButtonState extends State<MyButton123> {
                       print("ABC");
                     });
                   },
-                  style: ElevatedButton.styleFrom(
-                    primary:
-                        selectedButton == 'ON' ? Colors.green : Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.resolveWith<Color>((states) {
+                      if (states.contains(MaterialState.pressed)) {
+                        return Colors.green; // color when pressed
+                      }
+                      return selectedButton == 'ON'
+                          ? Colors.green
+                          : Colors.white; // default color
+                    }),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                     ),
                   ),
                   child: Container(
-                    height: 140,
-                    width: 140,
+                    height: 150,
+                    width: 120,
                     child: Center(
                       child: Text(
                         "ON",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 80,
+                          fontSize: 60,
                           color: selectedButton == 'ON'
                               ? Colors.white
                               : Colors.green,
@@ -67,27 +84,36 @@ class _MyButtonState extends State<MyButton123> {
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      selectedButton = 'OF';
+                      selectedButton = 'OFF';
                       print("123");
                     });
                   },
-                  style: ElevatedButton.styleFrom(
-                    primary:
-                        selectedButton == 'OF' ? Colors.green : Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.resolveWith<Color>((states) {
+                      if (states.contains(MaterialState.pressed)) {
+                        return Colors.green; // color when pressed
+                      }
+                      return selectedButton == 'OFF'
+                          ? Colors.green
+                          : Colors.white; // default color
+                    }),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                     ),
                   ),
                   child: Container(
-                    height: 140,
+                    height: 150,
                     width: 140,
                     child: Center(
                       child: Text(
-                        "OF",
+                        "OFF",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 80,
-                          color: selectedButton == 'OF'
+                          fontSize: 60,
+                          color: selectedButton == 'OFF'
                               ? Colors.white
                               : Colors.green,
                         ),
